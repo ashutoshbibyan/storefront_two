@@ -2,6 +2,8 @@
   <h1 class='text-3xl'>SignUp</h1>
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="flex flex-col py-6">
+      <span class="text-red-700 text-xs">{{formError}}</span>
+
       <input  formControlName="email" class="border  border-gray-600 my-4 h-10 rounded-md p-2" type="email" placeholder="Enter Email">
       <span class="text-red-700 text-xs">{{getEmailErrors()}}</span>
 

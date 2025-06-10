@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ import {AuthService} from '../auth.service';
 export class RegisterComponent {
 
   registerForm: FormGroup;
-
+  formError:string = '';
   constructor(private _formBuilder: FormBuilder , private authService: AuthService) {
     this.registerForm = this._formBuilder.group({
       'email':new FormControl('', [Validators.required ,Validators.email]),
@@ -23,7 +24,12 @@ export class RegisterComponent {
   }
 
   register(){
-    this.authService.register(this.registerForm.value).subscribe((data)=>{console.log(data);});
+    this.formError = '';
+    this.authService.register(this.registerForm.value).subscribe({
+      next:(data:string)=>{
+        console.log(data);
+      },error:(err:HttpErrorResponse) => this.formError = err.error.message
+    });
   }
 
   getEmailErrors():string{

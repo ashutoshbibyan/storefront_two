@@ -15,7 +15,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class LoginComponent {
 
   loginForm:FormGroup;
-
+  formError:string = '';
   constructor(formBuilder: FormBuilder , private  authService: AuthService) {
     this.loginForm = formBuilder.group({
       'email':new FormControl('', [Validators.required , Validators.email]),
@@ -24,9 +24,11 @@ export class LoginComponent {
   }
 
   login(){
+    this.formError = '';
     this.authService.login(this.loginForm.value).subscribe({next:(data:{token:string})=>{
       localStorage.setItem('token',data.token);
-    },error:(err:HttpErrorResponse) => console.log(err)});
+
+    },error:(err:HttpErrorResponse) => this.formError = err.error.message});
   }
 
   getEmailErrors():string{
