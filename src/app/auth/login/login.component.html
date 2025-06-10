@@ -1,1 +1,16 @@
-<p>login works!</p>
+<div class="w-1/2 border border-gray-200 p-12 m-auto my-12 bg-gray-400 ">
+  <h1 class='text-3xl'>Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="flex flex-col py-6">
+      <input formControlName="email" class="border  border-gray-600 my-4 h-10 rounded-md p-2" type="email" placeholder="Enter Email">
+      <span class="text-red-700 text-xs">{{getEmailErrors()}}</span>
+      <input formControlName="password" class="border  border-gray-600 my-4 h-10 rounded-md p-2" type="password" placeholder="Enter password">
+      <span class="text-red-700 text-xs">{{getPasswordError()}}</span>
+
+      <input [disabled]="loginForm.invalid" class=" disabled:bg-gray-700 disabled:text-gray-400  my-4 h-10 rounded-md p-2 w-fit  bg-white text-gray-800 hover:bg-green-700 hover:text-white "  type="submit" >
+
+
+    </div>
+
+  </form>
+</div>
